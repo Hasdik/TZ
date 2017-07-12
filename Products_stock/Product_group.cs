@@ -13,7 +13,7 @@ namespace Products_stock
 {
     public partial class Product_group : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DB.mdf;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\App_Data\DB.mdf;Integrated Security=True");
         public Product_group()
         {
             InitializeComponent();
