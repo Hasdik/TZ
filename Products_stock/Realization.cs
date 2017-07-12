@@ -74,7 +74,7 @@ namespace Products_stock
         {
             if (radioButton1.Checked == true)
             {
-                comboBox1.Enabled = false;
+                //comboBox1.Enabled = false;
                 comboBox1.Items.Clear();
                 comboBox2.Items.Clear();
                 comboBox3.Items.Clear();
