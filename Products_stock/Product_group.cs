@@ -79,7 +79,7 @@ namespace Products_stock
                 {
                     comboBox1.Enabled = true;
                     comboBox1.Items.Clear();
-                    comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+                    comboBox1.DropDownStyle = ComboBoxStyle.DropDown;
                     groupBox2.Text = "Изменить";
                     buttonAddgr.Text = "Изменить";
                     Copy_id();
@@ -144,9 +144,8 @@ namespace Products_stock
                 textBox2.Text = s1;
                 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
             }
         }
         private void Update_group()
@@ -220,6 +219,17 @@ namespace Products_stock
             if (radioButton2.Checked == true)
             {
                 Copy_group();
+            }
+        }
+
+        private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar)))
+            {
+                if (e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
             }
         }
     }

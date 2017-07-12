@@ -110,7 +110,7 @@ namespace Products_stock
                     comboBox2.Items.Clear();
                     comboBox3.Items.Clear();
                     comboBox4.Items.Clear();
-                    comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+                    comboBox1.DropDownStyle = ComboBoxStyle.DropDown;
                     comboBox2.DropDownStyle = ComboBoxStyle.DropDown;
                     comboBox3.DropDownStyle = ComboBoxStyle.DropDown;
                     comboBox4.DropDownStyle = ComboBoxStyle.DropDown;
@@ -213,7 +213,6 @@ namespace Products_stock
 
                 cmdSel = null;
                 conn.Close();
-                comboBox3.Enabled = false;
             }
             catch (Exception) { conn.Close(); }
         }
@@ -321,9 +320,8 @@ namespace Products_stock
                 textBox5.Text = s7;
                 dateTimePicker3.Value = Convert.ToDateTime(s8);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
             }
         }
         private void buttonAddgr_Click(object sender, EventArgs e)
@@ -525,6 +523,17 @@ namespace Products_stock
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
             Copy_rel();
+        }
+
+        private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar)))
+            {
+                if (e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
+            }
         }
     }
 }

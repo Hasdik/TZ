@@ -27,7 +27,7 @@ namespace Products_stock
 
         private void Goods_Load(object sender, EventArgs e)
         {
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDown;
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
             printtable();
@@ -193,9 +193,8 @@ namespace Products_stock
                 Price_t.Text = s4;
                 Count_t.Text = s5;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
             }
         }
 
@@ -495,6 +494,17 @@ namespace Products_stock
             catch (Exception)
             {
                 MessageBox.Show("Не удалось сохранить файл!", "Отчет в PDF", MessageBoxButtons.OK);
+            }
+        }
+
+        private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar)))
+            {
+                if (e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
             }
         }
     }

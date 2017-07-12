@@ -102,7 +102,7 @@ namespace Products_stock
                     comboBox1.Items.Clear();
                     comboBox2.Items.Clear();
                     comboBox3.Items.Clear();
-                    comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+                    comboBox1.DropDownStyle = ComboBoxStyle.DropDown;
                     comboBox2.DropDownStyle = ComboBoxStyle.DropDown;
                     comboBox3.DropDownStyle = ComboBoxStyle.DropDown;
                     groupBox2.Text = "Изменить";
@@ -247,9 +247,8 @@ namespace Products_stock
                 dateTimePicker3.Value = Convert.ToDateTime(s8);
                 textBox5.Text = s9;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
             }
         }
 
@@ -393,6 +392,17 @@ namespace Products_stock
             else
                 if (e.KeyChar != (char)Keys.Back)
                 e.Handled = true;
+        }
+
+        private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar)))
+            {
+                if (e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
+            }
         }
     }
 }

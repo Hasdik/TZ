@@ -85,7 +85,7 @@ namespace Products_stock
                 {
                     comboBox1.Enabled = true;
                     comboBox1.Items.Clear();
-                    comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+                    comboBox1.DropDownStyle = ComboBoxStyle.DropDown;
                     groupBox2.Text = "Изменить";
                     buttonAddgr.Text = "Изменить";
                     Copy_id();
@@ -166,9 +166,8 @@ namespace Products_stock
                 textBox3.Text = s4;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
             }
         }
 
@@ -246,6 +245,17 @@ namespace Products_stock
         }
 
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar)))
+            {
+                if (e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!(Char.IsDigit(e.KeyChar)))
             {
