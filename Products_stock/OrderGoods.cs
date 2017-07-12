@@ -13,7 +13,7 @@ namespace Products_stock
 {
     public partial class OrderGoods : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\Products_stock\Products_stock\DB.mdf;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DB.mdf;Integrated Security=True");
         public OrderGoods()
         {
             InitializeComponent();
@@ -21,11 +21,15 @@ namespace Products_stock
 
         private void OrderGoods_Load(object sender, EventArgs e)
         {
-            radioButton1.Checked = true;
-            printtable();
-            ColumsHeaderText();
-            textBox5.Enabled = false;
-            comboBox1.Text = dataGridView1.RowCount.ToString();
+            try
+            {
+                radioButton1.Checked = true;
+                printtable();
+                ColumsHeaderText();
+                textBox5.Enabled = false;
+                comboBox1.Text = dataGridView1.RowCount.ToString();
+            }
+            catch (Exception) { }
         }
         private void printtable()
         {
@@ -47,18 +51,22 @@ namespace Products_stock
         }
         private void ColumsHeaderText()
         {
-            dataGridView1.Columns[0].HeaderText = "Номер заказа";
-            dataGridView1.Columns[1].HeaderText = "Поставщик";
-            dataGridView1.Columns[2].HeaderText = "Название товара";
-            dataGridView1.Columns[3].HeaderText = "Группа";
-            dataGridView1.Columns[4].HeaderText = "Единица измерения";
-            dataGridView1.Columns[5].HeaderText = "Цена";
-            dataGridView1.Columns[6].HeaderText = "Количество";
-            dataGridView1.Columns[7].HeaderText = "Дата заказа";
-            dataGridView1.Columns[8].HeaderText = "Дата поставки на склад";
-            dataGridView1.Columns[9].HeaderText = "Общая сумма";
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
-            dataGridView1.Font = new Font("Times New Roman", 10);
+            try
+            {
+                dataGridView1.Columns[0].HeaderText = "Номер заказа";
+                dataGridView1.Columns[1].HeaderText = "Поставщик";
+                dataGridView1.Columns[2].HeaderText = "Название товара";
+                dataGridView1.Columns[3].HeaderText = "Группа";
+                dataGridView1.Columns[4].HeaderText = "Единица измерения";
+                dataGridView1.Columns[5].HeaderText = "Цена";
+                dataGridView1.Columns[6].HeaderText = "Количество";
+                dataGridView1.Columns[7].HeaderText = "Дата заказа";
+                dataGridView1.Columns[8].HeaderText = "Дата поставки на склад";
+                dataGridView1.Columns[9].HeaderText = "Общая сумма";
+                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
+                dataGridView1.Font = new Font("Times New Roman", 10);
+            }
+            catch (Exception) { }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -109,66 +117,78 @@ namespace Products_stock
         }
         private void Copy_id()
         {
-            conn.Open();
-            string sqlSel = "select Id_order from Order_goods";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                comboBox1.Items.Add(dr["Id_order"].ToString());
+                conn.Open();
+                string sqlSel = "select Id_order from Order_goods";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox1.Items.Add(dr["Id_order"].ToString());
+                }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
+            catch (Exception) { conn.Close(); }
         }
         private void Copy_post()
         {
-            conn.Open();
-            string sqlSel = "select Name from Postavwiki";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                comboBox2.Items.Add(dr["Name"].ToString());
+                conn.Open();
+                string sqlSel = "select Name from Postavwiki";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox2.Items.Add(dr["Name"].ToString());
+                }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
+            catch (Exception) { conn.Close(); }
         }
         private void Copy_gr()
         {
-            conn.Open();
-            string sqlSel = "select Name from Product_group";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                comboBox3.Items.Add(dr["Name"].ToString());
+                conn.Open();
+                string sqlSel = "select Name from Product_group";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox3.Items.Add(dr["Name"].ToString());
+                }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
+            catch (Exception) { conn.Close(); }
         }
 
         private void button_delgr_Click(object sender, EventArgs e)
@@ -247,6 +267,8 @@ namespace Products_stock
             {
                 try
                 {
+                    if (textBox1.Text != String.Empty && textBox3.Text != String.Empty && textBox4.Text != String.Empty && textBox6.Text != String.Empty && comboBox2.Text != String.Empty && comboBox3.Text != String.Empty)
+                    {
                     conn.Open();
                     int s = Convert.ToInt32(comboBox1.Text);
                     string s1 = comboBox2.Text;
@@ -273,6 +295,11 @@ namespace Products_stock
                     comboBox2.ResetText();
                     comboBox3.ResetText();
                     comboBox1.Text = dataGridView1.RowCount.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Заполните все поля!");
+                    }
                 }
                 catch (FormatException ex)
                 {

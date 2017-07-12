@@ -43,7 +43,7 @@
             // 
             this.button1.BackColor = System.Drawing.Color.Snow;
             this.button1.Location = new System.Drawing.Point(53, 13);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(284, 50);
             this.button1.TabIndex = 0;
@@ -55,7 +55,7 @@
             // 
             this.Tovar.BackColor = System.Drawing.Color.Snow;
             this.Tovar.Location = new System.Drawing.Point(53, 71);
-            this.Tovar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Tovar.Margin = new System.Windows.Forms.Padding(4);
             this.Tovar.Name = "Tovar";
             this.Tovar.Size = new System.Drawing.Size(284, 50);
             this.Tovar.TabIndex = 1;
@@ -67,7 +67,7 @@
             // 
             this.button_groupTovar.BackColor = System.Drawing.Color.Snow;
             this.button_groupTovar.Location = new System.Drawing.Point(53, 129);
-            this.button_groupTovar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_groupTovar.Margin = new System.Windows.Forms.Padding(4);
             this.button_groupTovar.Name = "button_groupTovar";
             this.button_groupTovar.Size = new System.Drawing.Size(284, 50);
             this.button_groupTovar.TabIndex = 2;
@@ -79,7 +79,7 @@
             // 
             this.button4.BackColor = System.Drawing.Color.Snow;
             this.button4.Location = new System.Drawing.Point(53, 187);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(284, 50);
             this.button4.TabIndex = 3;
@@ -91,7 +91,7 @@
             // 
             this.button5.BackColor = System.Drawing.Color.Snow;
             this.button5.Location = new System.Drawing.Point(53, 245);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(284, 50);
             this.button5.TabIndex = 4;
@@ -103,11 +103,11 @@
             // 
             this.button6.BackColor = System.Drawing.Color.Snow;
             this.button6.Location = new System.Drawing.Point(53, 303);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(284, 50);
             this.button6.TabIndex = 5;
-            this.button6.Text = "Реализация";
+            this.button6.Text = "Продажа товара";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -138,10 +138,9 @@
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Product_magaz";
-            this.Text = "Учет товара на складе продуктовго магазина";
+            this.Text = "Учет товара на складе продуктового магазина";
             this.Load += new System.EventHandler(this.Product_magaz_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

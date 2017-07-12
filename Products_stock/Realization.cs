@@ -13,7 +13,9 @@ namespace Products_stock
 {
     public partial class Realization : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\Products_stock\Products_stock\DB.mdf;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DB.mdf;Integrated Security=True");
+        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DB.mdf;Integrated Security=True");
+        string sessionCount;
         public Realization()
         {
             InitializeComponent();
@@ -21,11 +23,15 @@ namespace Products_stock
 
         private void Realization_Load(object sender, EventArgs e)
         {
-            radioButton1.Checked = true;
-            printtable();
-            ColumsHeaderText();
-            textBox5.Enabled = false;
-            comboBox1.Text = dataGridView1.RowCount.ToString();
+            try
+            {
+                radioButton1.Checked = true;
+                printtable();
+                ColumsHeaderText();
+                textBox5.Enabled = false;
+                comboBox1.Text = dataGridView1.RowCount.ToString();
+            }
+            catch (Exception) { }
         }
         private void printtable()
         {
@@ -47,17 +53,21 @@ namespace Products_stock
         }
         private void ColumsHeaderText()
         {
-            dataGridView1.Columns[0].HeaderText = "Номер реализации";
-            dataGridView1.Columns[1].HeaderText = "Сотрудник";
-            dataGridView1.Columns[2].HeaderText = "Название товара";
-            dataGridView1.Columns[3].HeaderText = "Группа";
-            dataGridView1.Columns[4].HeaderText = "Единица измерения";
-            dataGridView1.Columns[5].HeaderText = "Цена";
-            dataGridView1.Columns[6].HeaderText = "Количество";
-            dataGridView1.Columns[7].HeaderText = "Общая сумма";
-            dataGridView1.Columns[8].HeaderText = "Дата";
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
-            dataGridView1.Font = new Font("Times New Roman", 10);
+            try
+            {
+                dataGridView1.Columns[0].HeaderText = "Номер реализации";
+                dataGridView1.Columns[1].HeaderText = "Сотрудник";
+                dataGridView1.Columns[2].HeaderText = "Название товара";
+                dataGridView1.Columns[3].HeaderText = "Группа";
+                dataGridView1.Columns[4].HeaderText = "Единица измерения";
+                dataGridView1.Columns[5].HeaderText = "Цена";
+                dataGridView1.Columns[6].HeaderText = "Количество";
+                dataGridView1.Columns[7].HeaderText = "Общая сумма";
+                dataGridView1.Columns[8].HeaderText = "Дата";
+                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
+                dataGridView1.Font = new Font("Times New Roman", 10);
+            }
+            catch (Exception) { }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -123,117 +133,139 @@ namespace Products_stock
         }
         private void Copy_id()
         {
-            conn.Open();
-            string sqlSel = "select Id_relz from Realization";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                comboBox1.Items.Add(dr["Id_relz"].ToString());
+                conn.Open();
+                string sqlSel = "select Id_relz from Realization";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox1.Items.Add(dr["Id_relz"].ToString());
+                }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
+            catch (Exception) { conn.Close(); }
         }
         private void Copy_post()
         {
-            conn.Open();
-            string sqlSel = "select FIO from Employees";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                comboBox2.Items.Add(dr["FIO"].ToString());
+                conn.Open();
+                string sqlSel = "select FIO from Employees";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox2.Items.Add(dr["FIO"].ToString());
+                }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
+            catch (Exception) { conn.Close(); }
         }
         private void Copy_rel()
         {
-            string Name = "";
-            conn.Open();
-            string sqlSel = "select Name, [Group],Edinica_izmerenia,Price,Count from Goods";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                Name = dr["Name"].ToString();
-                if (Name == comboBox4.Text)
+                sessionCount = "";
+                string Name = "";
+                conn.Open();
+                string sqlSel = "select Name, [Group],Edinica_izmerenia,Price,Count from Goods";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
                 {
-                    comboBox3.Text = (dr["Group"].ToString());
-                    textBox4.Text = dr["Edinica_izmerenia"].ToString();
-                    textBox3.Text = dr["Price"].ToString();
-                    textBox6.Text = dr["Count"].ToString();
+                    Name = dr["Name"].ToString();
+                    if (Name == comboBox4.Text)
+                    {
+                        comboBox3.Text = (dr["Group"].ToString());
+                        textBox4.Text = dr["Edinica_izmerenia"].ToString();
+                        textBox3.Text = dr["Price"].ToString();
+                        textBox6.Text = dr["Count"].ToString();
+                        sessionCount = dr["Count"].ToString();
+                    }
                 }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
+                comboBox3.Enabled = false;
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
-            comboBox3.Enabled = false;
+            catch (Exception) { conn.Close(); }
         }
         private void Copy_gr()
         {
-            conn.Open();
-            string sqlSel = "select Name from Product_group";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                comboBox3.Items.Add(dr["Name"].ToString());
+                conn.Open();
+                string sqlSel = "select Name from Product_group";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox3.Items.Add(dr["Name"].ToString());
+                }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
+            catch (Exception) { conn.Close(); }
         }
         private void Copy_tv()
         {
-            conn.Open();
-            string sqlSel = "select Name from Goods";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                comboBox4.Items.Add(dr["Name"].ToString());
+                conn.Open();
+                string sqlSel = "select Name from Goods";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox4.Items.Add(dr["Name"].ToString());
+                }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
+            catch (Exception) { conn.Close(); }
         }
         private void button_delgr_Click(object sender, EventArgs e)
         {
@@ -300,29 +332,47 @@ namespace Products_stock
             {
                 try
                 {
-                    conn.Open();
-                    int s = Convert.ToInt32(comboBox1.Text);
-                    string s1 = comboBox2.Text;
-                    string s2 = comboBox4.Text;
-                    string s3 = comboBox3.Text;
-                    string s4 = textBox4.Text;
-                    string s5 = textBox3.Text;
-                    string s6 = textBox6.Text;
-                    string s7 = textBox5.Text;
-                    string s8 = dateTimePicker3.Value.Date.ToShortDateString();
-                    string sql = "insert into Realization (Id_relz,Eployees,Name,[Group],Edinica_izmerenia,Price,Count,All_sum,Date) values ('" + s + "',N'" + s1 + "',N'" + s2 + "',N'" + s3 + "',N'" + s4 + "',N'" + s5 + "',N'" + s6 + "',N'" + s7 + "',N'" + s8 + "')";
-                    SqlCommand command = new SqlCommand(sql, conn);
-                    command.ExecuteNonQuery();
-                    conn.Close();
-                    printtable();
-                    comboBox1.ResetText();
-                    comboBox4.ResetText();
-                    textBox5.Clear();
-                    textBox6.Clear();
-                    comboBox1.ResetText();
-                    comboBox2.ResetText();
-                    comboBox3.ResetText();
-                    comboBox1.Text = dataGridView1.RowCount.ToString();
+                    if (textBox6.Text != String.Empty && comboBox2.Text != String.Empty && comboBox4.Text != String.Empty)
+                    {
+                        conn.Open();
+                        int s = Convert.ToInt32(comboBox1.Text);
+                        string s1 = comboBox2.Text;
+                        string s2 = comboBox4.Text;
+                        string s3 = comboBox3.Text;
+                        string s4 = textBox4.Text;
+                        string s5 = textBox3.Text;
+                        string s6 = textBox6.Text;
+                        string s7 = textBox5.Text;
+                        string s8 = dateTimePicker3.Value.Date.ToShortDateString();
+                        if (Convert.ToInt32(s6) <= Convert.ToInt32(sessionCount))
+                        {
+                            string sql = "insert into Realization (Id_relz,Eployees,Name,[Group],Edinica_izmerenia,Price,Count,All_sum,Date) values ('" + s + "',N'" + s1 + "',N'" + s2 + "',N'" + s3 + "',N'" + s4 + "',N'" + s5 + "',N'" + s6 + "',N'" + s7 + "',N'" + s8 + "')";
+                            SqlCommand command = new SqlCommand(sql, conn);
+                            command.ExecuteNonQuery();
+                            conn.Close();
+                            printtable();
+                            MethodCheckTovar();
+                            comboBox1.ResetText();
+                            comboBox4.ResetText();
+                            textBox5.Clear();
+                            textBox6.Clear();
+                            comboBox1.ResetText();
+                            comboBox2.ResetText();
+                            comboBox3.ResetText();
+                            comboBox1.Text = dataGridView1.RowCount.ToString();
+
+                            sessionCount = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Количество товара '" + comboBox4.Text + "' на складе " + sessionCount + " штук. Нельза добавлять больше!", "Ошибка добавления!");
+                            conn.Close();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Заполните все поля!");
+                    }
                 }
                 catch (FormatException ex)
                 {
@@ -340,26 +390,74 @@ namespace Products_stock
                 Update_group();
             }
         }
-        private void Update_group()
+        private void MethodCheckTovar()
         {
             try
             {
+                string Group = " ";
+                string Edinica = " ";
+                string Count = " ";
+                string nometovara = " ";
+                string nomertovara = " ";
+                string price = " ";
                 conn.Open();
-                string sql = "Update Realization set [Eployees]=N'" + comboBox2.Text + "',[Name]=N'" + comboBox4.Text + "',[Group]=N'" + comboBox3.Text + "',[Edinica_izmerenia]=N'" + textBox4.Text + "',[Price]=N'" + textBox3.Text + "',[Count]=N'" + textBox6.Text + "',[All_sum]=N'" + textBox5.Text + "',[Date]=N'" + dateTimePicker3.Value.Date.ToShortDateString() + "' where [Id_relz]='" + comboBox1.Text + "'";
-                SqlCommand command = new SqlCommand(sql, conn);
-                command.ExecuteNonQuery();
+                string sqlSel = "select Id_goods,[Name],[Group],Edinica_izmerenia,Price,[Count] from [Goods]";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    nomertovara = dr["Id_goods"].ToString();
+                    nometovara = dr["Name"].ToString();
+                    Group = dr["Group"].ToString();
+                    Edinica = dr["Edinica_izmerenia"].ToString();
+                    price = dr["Price"].ToString();
+                    Count = dr["Count"].ToString();
+                    if ((nometovara == comboBox4.Text) && (Group == comboBox3.Text) && (Edinica == textBox4.Text) && (price == textBox3.Text))
+                    {
+                            connect.Open();
+                            Update_goods(nomertovara);
+                            connect.Close();
+                    }
+                }
+                cmdSel.Dispose();
+
+                cmdSel = null;
                 conn.Close();
-                printtable();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                connect.Close();
                 conn.Close();
             }
         }
+        private void Update_goods(string nomertovara)
+        {
+            int countnew = Convert.ToInt32(sessionCount) - (Convert.ToInt32(textBox6.Text));
+
+            string sql = "Update Goods set [Name]=N'" + comboBox4.Text + "',[Group]=N'" + comboBox3.Text + "',[Edinica_izmerenia]=N'" + textBox4.Text + "',[Price]='" + textBox3.Text + "',[Count]='" + countnew.ToString() + "' where [Id_goods]='" + nomertovara + "'";
+            SqlCommand command = new SqlCommand(sql, connect);
+            command.ExecuteNonQuery();
+
+            MessageBox.Show("Количество товара " + comboBox4.Text + " на складе = " + countnew);
+        }
+        private void Update_group()
+        {
+            conn.Open();
+            string sql = "Update Realization set [Eployees]=N'" + comboBox2.Text + "',[Name]=N'" + comboBox4.Text + "',[Group]=N'" + comboBox3.Text + "',[Edinica_izmerenia]=N'" + textBox4.Text + "',[Price]=N'" + textBox3.Text + "',[Count]=N'" + textBox6.Text + "',[All_sum]=N'" + textBox5.Text + "',[Date]=N'" + dateTimePicker3.Value.Date.ToShortDateString() + "' where [Id_relz]='" + comboBox1.Text + "'";
+            SqlCommand command = new SqlCommand(sql, connect);
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(radioButton2.Checked == true)
+            if (radioButton2.Checked == true)
             {
                 Copy_group();
             }

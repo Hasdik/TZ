@@ -13,7 +13,7 @@ namespace Products_stock
 {
     public partial class Product_group : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\Products_stock\Products_stock\DB.mdf;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DB.mdf;Integrated Security=True");
         public Product_group()
         {
             InitializeComponent();
@@ -21,10 +21,14 @@ namespace Products_stock
 
         private void Product_group_Load(object sender, EventArgs e)
         {
-            radioButton1.Checked = true;
-            printtable();
-            ColumsHeaderText();
-            comboBox1.Text = dataGridView1.RowCount.ToString();
+            try
+            {
+                radioButton1.Checked = true;
+                printtable();
+                ColumsHeaderText();
+                comboBox1.Text = dataGridView1.RowCount.ToString();
+            }
+            catch (Exception) { }
         }
         private void printtable()
         {
@@ -46,10 +50,14 @@ namespace Products_stock
         }
         private void ColumsHeaderText()
         {
-            dataGridView1.Columns[0].HeaderText = "Номер группы";
-            dataGridView1.Columns[1].HeaderText = "Название группы";
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
-            dataGridView1.Font = new Font("Times New Roman", 10);
+            try
+            {
+                dataGridView1.Columns[0].HeaderText = "Номер группы";
+                dataGridView1.Columns[1].HeaderText = "Название группы";
+                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
+                dataGridView1.Font = new Font("Times New Roman", 10);
+            }
+            catch (Exception) { }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -90,17 +98,24 @@ namespace Products_stock
             {
                 try
                 {
-                    conn.Open();
-                    int s = Convert.ToInt32(comboBox1.Text);
-                    string s1 = textBox2.Text;
-                    string sql = "insert into Product_group (Id_product,Name) values ('" + s + "',N'" + s1 + "')";
-                    SqlCommand command = new SqlCommand(sql, conn);
-                    command.ExecuteNonQuery();
-                    conn.Close();
-                    printtable();
-                    comboBox1.ResetText();
-                    textBox2.Clear();
-                    comboBox1.Text = dataGridView1.RowCount.ToString();
+                    if (textBox2.Text != String.Empty)
+                    {
+                        conn.Open();
+                        int s = Convert.ToInt32(comboBox1.Text);
+                        string s1 = textBox2.Text;
+                        string sql = "insert into Product_group (Id_product,Name) values ('" + s + "',N'" + s1 + "')";
+                        SqlCommand command = new SqlCommand(sql, conn);
+                        command.ExecuteNonQuery();
+                        conn.Close();
+                        printtable();
+                        comboBox1.ResetText();
+                        textBox2.Clear();
+                        comboBox1.Text = dataGridView1.RowCount.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Заполните все поля!");
+                    }
                 }
                 catch (FormatException ex)
                 {
@@ -153,24 +168,28 @@ namespace Products_stock
         }
         private void Copy_id()
         {
-            conn.Open();
-            string sqlSel = "select Id_product from Product_group";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                comboBox1.Items.Add(dr["Id_product"].ToString());
+                conn.Open();
+                string sqlSel = "select Id_product from Product_group";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox1.Items.Add(dr["Id_product"].ToString());
+                }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
+            catch (Exception) { conn.Close(); }
         }
         private void button_delgr_Click(object sender, EventArgs e)
         {

@@ -55,6 +55,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.Location = new System.Drawing.Point(269, 9);
             this.label7.Name = "label7";
@@ -64,6 +65,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.groupBox2.Controls.Add(this.textBox4);
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label5);
@@ -75,9 +77,10 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.Location = new System.Drawing.Point(12, 208);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(554, 201);
+            this.groupBox2.Size = new System.Drawing.Size(734, 201);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Добавить";
@@ -142,12 +145,14 @@
             // 
             // buttonAddgr
             // 
+            this.buttonAddgr.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.buttonAddgr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddgr.Location = new System.Drawing.Point(392, 90);
             this.buttonAddgr.Name = "buttonAddgr";
             this.buttonAddgr.Size = new System.Drawing.Size(92, 32);
             this.buttonAddgr.TabIndex = 4;
             this.buttonAddgr.Text = "Добавить";
-            this.buttonAddgr.UseVisualStyleBackColor = true;
+            this.buttonAddgr.UseVisualStyleBackColor = false;
             this.buttonAddgr.Click += new System.EventHandler(this.buttonAddgr_Click);
             // 
             // label2
@@ -177,12 +182,14 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Controls.Add(this.button_delgr);
             this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Location = new System.Drawing.Point(572, 35);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Location = new System.Drawing.Point(566, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(180, 141);
+            this.groupBox1.Size = new System.Drawing.Size(180, 167);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Функции";
@@ -190,9 +197,10 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(22, 25);
+            this.radioButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton1.Location = new System.Drawing.Point(22, 47);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(147, 23);
+            this.radioButton1.Size = new System.Drawing.Size(146, 23);
             this.radioButton1.TabIndex = 2;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Добавить данные";
@@ -201,20 +209,23 @@
             // 
             // button_delgr
             // 
-            this.button_delgr.Location = new System.Drawing.Point(46, 83);
+            this.button_delgr.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.button_delgr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_delgr.Location = new System.Drawing.Point(46, 105);
             this.button_delgr.Name = "button_delgr";
             this.button_delgr.Size = new System.Drawing.Size(93, 31);
             this.button_delgr.TabIndex = 4;
             this.button_delgr.Text = "Удалить";
-            this.button_delgr.UseVisualStyleBackColor = true;
+            this.button_delgr.UseVisualStyleBackColor = false;
             this.button_delgr.Click += new System.EventHandler(this.button_delgr_Click);
             // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(22, 54);
+            this.radioButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton2.Location = new System.Drawing.Point(22, 76);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(148, 23);
+            this.radioButton2.Size = new System.Drawing.Size(147, 23);
             this.radioButton2.TabIndex = 3;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Изменить данные";
@@ -222,17 +233,19 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 35);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 45;
-            this.dataGridView1.Size = new System.Drawing.Size(554, 167);
+            this.dataGridView1.Size = new System.Drawing.Size(543, 167);
             this.dataGridView1.TabIndex = 10;
             // 
             // Postavwik
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Products_stock.Properties.Resources._08;
             this.ClientSize = new System.Drawing.Size(761, 418);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox2);

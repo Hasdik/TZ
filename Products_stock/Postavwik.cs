@@ -13,7 +13,7 @@ namespace Products_stock
 {
     public partial class Postavwik : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\Products_stock\Products_stock\DB.mdf;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DB.mdf;Integrated Security=True");
         public Postavwik()
         {
             InitializeComponent();
@@ -21,10 +21,14 @@ namespace Products_stock
 
         private void Postavwik_Load(object sender, EventArgs e)
         {
-            radioButton1.Checked = true;
-            printtable();
-            ColumsHeaderText();
-            comboBox1.Text = dataGridView1.RowCount.ToString();
+            try
+            {
+                radioButton1.Checked = true;
+                printtable();
+                ColumsHeaderText();
+                comboBox1.Text = dataGridView1.RowCount.ToString();
+            }
+            catch (Exception) { }
         }
         private void printtable()
         {
@@ -46,13 +50,17 @@ namespace Products_stock
         }
         private void ColumsHeaderText()
         {
-            dataGridView1.Columns[0].HeaderText = "Номер поставщика";
-            dataGridView1.Columns[1].HeaderText = "Наименование";
-            dataGridView1.Columns[2].HeaderText = "Адрес";
-            dataGridView1.Columns[3].HeaderText = "Телефон";
-            dataGridView1.Columns[4].HeaderText = "Электронный адрес";
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
-            dataGridView1.Font = new Font("Times New Roman", 10);
+            try
+            {
+                dataGridView1.Columns[0].HeaderText = "Номер поставщика";
+                dataGridView1.Columns[1].HeaderText = "Наименование";
+                dataGridView1.Columns[2].HeaderText = "Адрес";
+                dataGridView1.Columns[3].HeaderText = "Телефон";
+                dataGridView1.Columns[4].HeaderText = "Электронный адрес";
+                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
+                dataGridView1.Font = new Font("Times New Roman", 10);
+            }
+            catch (Exception) { }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -91,24 +99,28 @@ namespace Products_stock
         }
         private void Copy_id()
         {
-            conn.Open();
-            string sqlSel = "select id_post from Postavwiki";
-
-            SqlDataReader dr = null;
-
-            SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
-
-            dr = cmdSel.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                comboBox1.Items.Add(dr["id_post"].ToString());
+                conn.Open();
+                string sqlSel = "select id_post from Postavwiki";
+
+                SqlDataReader dr = null;
+
+                SqlCommand cmdSel = new SqlCommand(sqlSel, conn);
+
+                dr = cmdSel.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox1.Items.Add(dr["id_post"].ToString());
+                }
+
+                cmdSel.Dispose();
+
+                cmdSel = null;
+                conn.Close();
             }
-
-            cmdSel.Dispose();
-
-            cmdSel = null;
-            conn.Close();
+            catch (Exception) { conn.Close(); }
         }
 
         private void button_delgr_Click(object sender, EventArgs e)
@@ -174,23 +186,30 @@ namespace Products_stock
             {
                 try
                 {
-                    conn.Open();
-                    int s = Convert.ToInt32(comboBox1.Text);
-                    string s1 = textBox2.Text;
-                    string s2 = textBox1.Text;
-                    string s3 = textBox4.Text;
-                    string s4 = textBox3.Text;
-                    string sql = "insert into Postavwiki (id_post,Name,Address,Phone,Mail) values ('" + s + "',N'" + s1 + "',N'" + s2 + "',N'" + s3 + "',N'" + s4 + "')";
-                    SqlCommand command = new SqlCommand(sql, conn);
-                    command.ExecuteNonQuery();
-                    conn.Close();
-                    printtable();
-                    comboBox1.ResetText();
-                    textBox1.Clear();
-                    textBox2.Clear();
-                    textBox3.Clear();
-                    textBox4.Clear();
-                    comboBox1.Text = dataGridView1.RowCount.ToString();
+                    if (textBox1.Text != String.Empty && textBox2.Text != String.Empty && textBox3.Text != String.Empty && textBox4.Text != String.Empty)
+                    {
+                        conn.Open();
+                        int s = Convert.ToInt32(comboBox1.Text);
+                        string s1 = textBox2.Text;
+                        string s2 = textBox1.Text;
+                        string s3 = textBox4.Text;
+                        string s4 = textBox3.Text;
+                        string sql = "insert into Postavwiki (id_post,Name,Address,Phone,Mail) values ('" + s + "',N'" + s1 + "',N'" + s2 + "',N'" + s3 + "',N'" + s4 + "')";
+                        SqlCommand command = new SqlCommand(sql, conn);
+                        command.ExecuteNonQuery();
+                        conn.Close();
+                        printtable();
+                        comboBox1.ResetText();
+                        textBox1.Clear();
+                        textBox2.Clear();
+                        textBox3.Clear();
+                        textBox4.Clear();
+                        comboBox1.Text = dataGridView1.RowCount.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Заполните все поля!");
+                    }
                 }
                 catch (FormatException ex)
                 {
